@@ -2,6 +2,7 @@
 
 import {ForwardedRef, forwardRef, InputHTMLAttributes, useId} from "react";
 import Stack from "@/components/layout/Stack";
+import * as Label from '@radix-ui/react-label';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
@@ -14,7 +15,9 @@ function _Input({label, type = "text", required = false, ...props}: InputProps, 
 
   return (
     <Stack gutter="1">
-      <label htmlFor={id}>{label}</label>
+      <Label.Root htmlFor={id}>
+        {label}
+      </Label.Root>
       <input
         required
         id={id}
