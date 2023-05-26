@@ -1,0 +1,7 @@
+.stack {
+  --gutter: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+}
