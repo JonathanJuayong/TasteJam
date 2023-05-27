@@ -1,0 +1,15 @@
+.inline {
+  --gutter: 0;
+  --justify: initial;
+  --align: initial;
+
+  display: flex;
+  justify-content: var(--justify);
+  flex-basis: 0;
+  align-items: var(--align);
+  gap: var(--gutter);
+}
+
+.stretch {
+  flex: 1
+}
