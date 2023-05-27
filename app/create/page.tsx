@@ -1,7 +1,9 @@
-import Wrapper from "@/components/layout/Wrapper";
+import RecipeNameForm from "@/components/form/RecipeNameForm";
 
 export default function Page() {
   return (
-    <p>this is a test</p>
+    <>
+      <RecipeNameForm/>
+    </>
   )
 }
