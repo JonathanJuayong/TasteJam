@@ -27,5 +27,5 @@ export interface Recipe {
   cookTime: number
   images: string[]
   equipment: string[]
-  allergens?: string[]
+  allergens: string[]
 }
