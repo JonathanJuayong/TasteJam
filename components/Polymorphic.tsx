@@ -9,10 +9,10 @@ type PolymorphicProps<T extends ElementType> = {
 } & ComponentPropsWithRef<T>
   & PolymorphicComponent<T>
 
-export default function Polymorphic<T extends ElementType = "div">({as, children, ...props}: PolymorphicProps<T>) {
+export default function Polymorphic<T extends ElementType = "div">({as, className, children, ...props}: PolymorphicProps<T>) {
   const Component = as ?? "div"
 
   return (
-    <Component {...props}>{children}</Component>
+    <Component className={className} {...props}>{children}</Component>
   )
 }

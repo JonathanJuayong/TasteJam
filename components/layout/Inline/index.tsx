@@ -26,7 +26,8 @@ export default function Inline(
     as = "div",
     gutter = "0",
     justify = "between",
-    align = "start"
+    align = "start",
+    className = ""
   }: InlineProps) {
 
   const positionMap: PositionMap = {
@@ -49,7 +50,7 @@ export default function Inline(
     <Polymorphic
       style={style}
       as={as}
-      className={styles.inline}
+      className={`${styles.inline} ${className}`}
     >
       {children}
     </Polymorphic>

@@ -8,10 +8,10 @@ interface ContainerProps extends PolymorphicComponent<ElementType>{
   clampWidth?: Breakpoints
 }
 
-export default function Container({children, clampWidth = "sm", as = "div"}: ContainerProps) {
+export default function Container({children, clampWidth = "sm", as = "div", className = ""}: ContainerProps) {
   const style = {"--max-width": theme.breakpoints[clampWidth]} as CSSProperties
 
   return (
-    <Polymorphic as={as} style={style} className={styles.container}>{children}</Polymorphic>
+    <Polymorphic as={as} style={style} className={`${styles.container} ${className}`}>{children}</Polymorphic>
   )
 }
