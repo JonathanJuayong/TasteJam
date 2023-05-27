@@ -1,6 +1,6 @@
-import {ComponentPropsWithRef, ElementType, ReactNode} from "react";
+import {ComponentPropsWithRef, ElementType, HTMLAttributes, ReactNode} from "react";
 
-export type PolymorphicComponent<T extends ElementType> = {
+export interface PolymorphicComponent<T extends ElementType> extends HTMLAttributes<HTMLElement>{
   as?: T
 }
 
