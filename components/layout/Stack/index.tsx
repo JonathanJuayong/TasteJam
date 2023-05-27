@@ -1,15 +1,16 @@
-import {CSSProperties, ReactNode} from "react";
+import {CSSProperties, ElementType, ReactNode} from "react";
 import styles from "./styles.module.scss"
 import theme, {Spacing} from "@/utils/theme";
+import Polymorphic, {PolymorphicComponent} from "@/components/Polymorphic";
 
-interface StackProps {
+interface StackProps extends PolymorphicComponent<ElementType>{
   children: ReactNode
   gutter?: Spacing
 }
 
-export default function Stack({children, gutter = "0"}: StackProps) {
+export default function Stack({children, as = "div", gutter = "0"}: StackProps) {
   const style = {"--gutter": theme.spacing[gutter]} as CSSProperties
   return (
-    <div style={style} className={styles.stack}>{children}</div>
+    <Polymorphic as={as} style={style} className={styles.stack}>{children}</Polymorphic>
   )
 }
