@@ -1,9 +1,9 @@
-import RecipeNameForm from "@/components/form/RecipeNameForm";
+import FormContainer from "@/components/form/FormContainer";
 
 export default function Page() {
   return (
     <>
-      <RecipeNameForm/>
+      <FormContainer/>
     </>
   )
 }
