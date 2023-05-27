@@ -3,6 +3,7 @@
 import {ForwardedRef, forwardRef, TextareaHTMLAttributes, useId} from "react";
 import * as Label from '@radix-ui/react-label';
 import Stack from "@/components/layout/Stack";
+import styles from "./styles.module.scss"
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string
@@ -13,9 +14,10 @@ function _Textarea({label, placeholder, ...props}: TextareaProps, ref: Forwarded
   const id = useId()
   
   return (
-    <Stack>
+    <Stack gutter="1">
       <Label.Root htmlFor={id}>{label}</Label.Root>
       <textarea
+        className={styles.textarea}
         id={id}
         cols={30}
         rows={10}
