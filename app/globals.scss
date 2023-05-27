@@ -72,3 +72,13 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+input,
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
