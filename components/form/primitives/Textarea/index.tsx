@@ -10,11 +10,11 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   required?: boolean
 }
 
-function _Textarea({label, placeholder, required = false, ...props}: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>) {
+function _Textarea({label, placeholder, className, required = false, ...props}: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>) {
   const id = useId()
   
   return (
-    <Stack gutter="1">
+    <Stack className={className} gutter="1">
       <Label.Root htmlFor={id}>{label}</Label.Root>
       <textarea
         required={required}

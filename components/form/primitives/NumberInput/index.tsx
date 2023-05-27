@@ -9,11 +9,11 @@ interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean
 }
 
-function _NumberInput({label, required, ...props}: NumberInputProps, ref: ForwardedRef<HTMLInputElement>) {
+function _NumberInput({label, className, required, ...props}: NumberInputProps, ref: ForwardedRef<HTMLInputElement>) {
   const id = useId()
 
   return (
-    <Stack gutter="1">
+    <Stack className={className} gutter="1">
       <Label.Root
         htmlFor={id}>
         {label}
