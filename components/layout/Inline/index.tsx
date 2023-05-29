@@ -60,7 +60,7 @@ export default function Inline(
 function Stretch({children}: {children: ReactNode}) {
   const child = Children.only(children) as ReactElement
   const stretched = cloneElement(child, {
-    className: styles.stretch
+    className: `${child.props.className} ${styles.stretch}`
   })
   return <>{stretched}</>
 }
