@@ -9,7 +9,7 @@ const recipeFormInitialState: Recipe = {
   header: "",
   subheader: "",
   description: "",
-  yield: 0,
+  serves: 0,
   prepTime: 0,
   cookTime: 0,
   ingredients: [],

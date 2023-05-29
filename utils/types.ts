@@ -22,7 +22,7 @@ export interface Recipe {
   ingredients: IngredientGroup[]
   instructions: Instruction[]
   author: string
-  yield: number
+  serves: number
   prepTime: number
   cookTime: number
   images: string[]
