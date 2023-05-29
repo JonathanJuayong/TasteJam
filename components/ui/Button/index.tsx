@@ -1,8 +1,8 @@
 "use client"
 
-import {ReactNode} from "react";
+import {HTMLAttributes, ReactNode} from "react";
 
-interface ButtonProps {
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement>{
   children: ReactNode
   onClick: () => void
   size?: "default"
