@@ -2,7 +2,7 @@
 
 import {Recipe} from "@/utils/types";
 import {useState} from "react";
-import RecipeNameForm from "@/components/form/RecipeNameForm";
+import RecipePrimaryInfoForm from "@/components/form/RecipePrimaryInfoForm";
 import StateDebugger from "@/components/StateDebugger";
 
 const recipeFormInitialState: Recipe = {
@@ -26,7 +26,7 @@ export default function FormContainer() {
   return (
     <>
       <div>
-        <RecipeNameForm formStateSetter={setFormState}/>
+        <RecipePrimaryInfoForm formStateSetter={setFormState}/>
       </div>
       <StateDebugger state={formState}/>
     </>
