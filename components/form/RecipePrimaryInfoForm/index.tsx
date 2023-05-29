@@ -18,18 +18,9 @@ export default function RecipePrimaryInfoForm({formStateSetter}: RecipePrimaryIn
   const {register, handleSubmit} = useForm<Recipe>()
 
   const onSubmit = handleSubmit(data => {
-    // convert from string to number
-    const {serves, prepTime, cookTime} = data
-    const parsedAsNumber = {
-      serves: Number(serves),
-      prepTime: Number(prepTime),
-      cookTime: Number(cookTime),
-    }
-
     formStateSetter(prev => ({
       ...prev,
       ...data,
-      ...parsedAsNumber
     }))
   })
 
@@ -44,9 +35,9 @@ export default function RecipePrimaryInfoForm({formStateSetter}: RecipePrimaryIn
           {...register("description")}
         />
         <Inline gutter="5">
-          <NumberInput label="Serves" {...register("serves")}/>
-          <NumberInput label="Prep Time" {...register("prepTime")}/>
-          <NumberInput label="Cook Time" {...register("cookTime")}/>
+          <NumberInput label="Serves" {...register("serves", {valueAsNumber: true})}/>
+          <NumberInput label="Prep Time" {...register("prepTime", {valueAsNumber: true})}/>
+          <NumberInput label="Cook Time" {...register("cookTime", {valueAsNumber: true})}/>
         </Inline>
         <Button onClick={onSubmit}>Submit</Button>
       </Stack>
