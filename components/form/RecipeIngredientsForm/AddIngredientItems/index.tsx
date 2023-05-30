@@ -32,9 +32,9 @@ export default function AddIngredientItems({control, register}: AddIngredientIte
     <Stack gutter="10">
       {fields.map((field, index, array) => (
         <Inline key={field.id} gutter="5" align="end">
-          <Input label="Name" {...register(`${fieldName}.${index}.name`)}/>
-          <Input label="Unit" {...register(`${fieldName}.${index}.unit`)}/>
+          <Input label="Item Name" {...register(`${fieldName}.${index}.name`)}/>
           <NumberInput label="Qty" {...register(`${fieldName}.${index}.qty`, {valueAsNumber: true})}/>
+          <Input label="Unit" {...register(`${fieldName}.${index}.unit`)}/>
           <Input label="Note" {...register(`${fieldName}.${index}.note`)}/>
           {array.length > 1 && <Button onClick={handleDelete(index)}>Delete</Button>}
         </Inline>
