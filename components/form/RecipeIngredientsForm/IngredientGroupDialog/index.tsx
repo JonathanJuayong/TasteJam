@@ -4,7 +4,7 @@ import Input from "@/components/form/primitives/Input";
 import Button from "@/components/ui/Button";
 import AddIngredientItems from "@/components/form/RecipeIngredientsForm/AddIngredientItems";
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/Dialog";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import {Dispatch, HTMLAttributes, SetStateAction, useEffect, useState} from "react";
 
 interface IngredientGroupDialogProps extends HTMLAttributes<HTMLButtonElement> {
   defaultValues: IngredientGroup
@@ -15,8 +15,18 @@ interface IngredientGroupDialogProps extends HTMLAttributes<HTMLButtonElement> {
   enableEdit?: boolean
 }
 
-export default function IngredientGroupDialog({triggerLabel, enableEdit = false, defaultValues, formStateSetter}: IngredientGroupDialogProps) {
-  const {control, register, handleSubmit, reset, watch} = useForm<IngredientGroup>({
+export default function IngredientGroupDialog(
+  {
+    defaultValues,
+    formStateSetter,
+    triggerLabel,
+    title,
+    description,
+    enableEdit = false,
+    className,
+    ...props
+  }: IngredientGroupDialogProps) {
+  const {control, register, handleSubmit, reset} = useForm<IngredientGroup>({
     defaultValues,
     shouldUnregister: true
   })
@@ -24,12 +34,16 @@ export default function IngredientGroupDialog({triggerLabel, enableEdit = false,
   const onSubmit = handleSubmit(data => {
     formStateSetter(prev => {
       if (enableEdit) {
-        return prev.map(item => item.name === data.name ? {...item, ...data} : item )
+        setIsOpen(false)
+        return prev.map(item => item.name === defaultValues.name ? {...item, ...data} : item )
       }
-
-      return [...prev, {...data}]
+      if (prev.find(item => item.name === data.name)) {
+        return prev
+      } else {
+        setIsOpen(false)
+        return [...prev, {...data}]
+      }
     })
-    setIsOpen(false)
   })
 
   useEffect(() => {
