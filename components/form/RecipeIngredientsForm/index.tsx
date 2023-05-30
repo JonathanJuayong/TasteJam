@@ -1,13 +1,10 @@
-import {Dispatch, FormEvent, SetStateAction, useState} from "react";
-import {IngredientGroup, Recipe} from "@/utils/types";
+import {FormEvent, useState} from "react";
+import {IngredientGroup} from "@/utils/types";
 import Stack from "@/components/layout/Stack";
 import IngredientGroupDialog from "@/components/form/RecipeIngredientsForm/IngredientGroupDialog";
 import Inline from "@/components/layout/Inline";
 import Button from "@/components/ui/Button";
-
-interface RecipeIngredientsFormProps {
-  formStateSetter: Dispatch<SetStateAction<Recipe>>
-}
+import {useRecipeFormContext} from "@/components/form/FormContext";
 
 const defaultValues = {
   name: "",
@@ -23,24 +20,26 @@ const defaultValues = {
 
 const GROUP_LENGTH_LIMIT = 4
 
-export default function RecipeIngredientsForm({formStateSetter}: RecipeIngredientsFormProps) {
-  const [formState, setFormState] = useState<IngredientGroup[]>([]);
+export default function RecipeIngredientsForm() {
+  const {formState, stateUpdateHandler} = useRecipeFormContext()
+
+  const [ingredientGroups, setIngredientGroups] = useState<IngredientGroup[]>(formState.ingredients);
   const handleDelete = (name: string) => () => {
-    setFormState(prev => prev.filter(item => item.name !== name))
+    setIngredientGroups(prev => prev.filter(item => item.name !== name))
   }
 
   const handleSubmit = (e: FormEvent<HTMLElement>) => {
     e.preventDefault()
-    formStateSetter(prev => ({
+    stateUpdateHandler(prev => ({
       ...prev,
-      ingredients: formState
+      ingredients: ingredientGroups
     }))
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <Stack gutter="10">
-        {formState.map((data) => (
+        {ingredientGroups.map((data) => (
           <Stack key={`${data.name}`}>
             <Inline gutter="5">
               <Inline.Stretch>
@@ -49,7 +48,7 @@ export default function RecipeIngredientsForm({formStateSetter}: RecipeIngredien
                   description=""
                   triggerLabel={`Edit Group ${data.name}`}
                   defaultValues={data}
-                  formStateSetter={setFormState}
+                  formStateSetter={setIngredientGroups}
                   enableEdit
                 />
               </Inline.Stretch>
@@ -57,13 +56,13 @@ export default function RecipeIngredientsForm({formStateSetter}: RecipeIngredien
             </Inline>
           </Stack>
         ))}
-        {formState.length < GROUP_LENGTH_LIMIT && (
+        {ingredientGroups.length < GROUP_LENGTH_LIMIT && (
           <IngredientGroupDialog
             title="Create Ingredient Group"
             description=""
             triggerLabel="Add Ingredient Group"
             defaultValues={defaultValues}
-            formStateSetter={setFormState}
+            formStateSetter={setIngredientGroups}
           />
         )}
         <Button typeof="submit" onSubmit={handleSubmit}>Submit</Button>

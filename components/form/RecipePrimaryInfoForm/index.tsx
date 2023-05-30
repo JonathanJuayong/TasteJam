@@ -5,20 +5,25 @@ import Input from "@/components/form/primitives/Input";
 import Stack from "@/components/layout/Stack";
 import Textarea from "@/components/form/primitives/Textarea";
 import Button from "@/components/ui/Button";
-import React, {Dispatch, SetStateAction} from "react";
+import React, {useEffect} from "react";
 import {Recipe} from "@/utils/types";
 import Inline from "@/components/layout/Inline";
 import NumberInput from "@/components/form/primitives/NumberInput";
+import {useRecipeFormContext} from "@/components/form/FormContext";
 
-interface RecipePrimaryInfoFormProps {
-  formStateSetter: Dispatch<SetStateAction<Recipe>>
-}
+export default function RecipePrimaryInfoForm() {
+  const {formState, stateUpdateHandler} = useRecipeFormContext()
 
-export default function RecipePrimaryInfoForm({formStateSetter}: RecipePrimaryInfoFormProps) {
-  const {register, handleSubmit} = useForm<Recipe>()
+  const {register, handleSubmit, reset} = useForm<Recipe>({
+    defaultValues: formState
+  })
+
+  useEffect(() => {
+    reset(formState)
+  }, [formState])
 
   const onSubmit = handleSubmit(data => {
-    formStateSetter(prev => ({
+    stateUpdateHandler(prev => ({
       ...prev,
       ...data,
     }))

@@ -1,40 +1,41 @@
 import {useForm} from "react-hook-form";
-import {Dispatch, SetStateAction} from "react";
-import {Instruction, Recipe} from "@/utils/types";
+import {Instruction} from "@/utils/types";
 import AddInstructions from "@/components/form/RecipeInstructionsForm/AddInstructions";
 import Stack from "@/components/layout/Stack";
 import Button from "@/components/ui/Button";
+import {useEffect} from "react";
+import {useRecipeFormContext} from "@/components/form/FormContext";
 
 export type InstructionsFormValues = {
   instructions: Instruction[]
 }
 
-interface RecipeInstructionsFormProps {
-  formStateSetter: Dispatch<SetStateAction<Recipe>>
-}
+export default function RecipeInstructionsForm() {
+  const {formState, stateUpdateHandler} = useRecipeFormContext()
 
-export default function RecipeInstructionsForm({formStateSetter}: RecipeInstructionsFormProps) {
-  const {control, register, handleSubmit} = useForm<InstructionsFormValues>({
+  const {control, register, handleSubmit, reset} = useForm<InstructionsFormValues>({
     defaultValues: {
-      instructions: [
-        {
-          image: "",
-          description: ""
-        }
-      ]
+      instructions: formState.instructions
     }
   })
+
+  useEffect(() => {
+    reset(formState)
+  }, [formState])
+
   const onSubmit = handleSubmit(data => {
-    formStateSetter(prev => ({
+    stateUpdateHandler(prev => ({
       ...prev,
       instructions: data.instructions
     }))
   })
 
   return (
-    <Stack gutter="6">
-      <AddInstructions fieldName="instructions" control={control} register={register}/>
-      <Button onClick={onSubmit}>Submit</Button>
-    </Stack>
+    <form onSubmit={onSubmit}>
+      <Stack gutter="6">
+        <AddInstructions fieldName="instructions" control={control} register={register}/>
+        <Button onClick={onSubmit}>Submit</Button>
+      </Stack>
+    </form>
   )
 }
