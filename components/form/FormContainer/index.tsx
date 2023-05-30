@@ -4,6 +4,11 @@ import {Recipe} from "@/utils/types";
 import {useState} from "react";
 import RecipePrimaryInfoForm from "@/components/form/RecipePrimaryInfoForm";
 import StateDebugger from "@/components/StateDebugger";
+import RecipeIngredientsForm from "@/components/form/RecipeIngredientsForm";
+import RecipeInstructionsForm from "@/components/form/RecipeInstructionsForm";
+import useElementTransition from "@/utils/hooks/useElementTransition";
+import Stack from "@/components/layout/Stack";
+import {FormContext} from "@/components/form/FormContext";
 
 const recipeFormInitialState: Recipe = {
   header: "",
@@ -22,13 +27,29 @@ const recipeFormInitialState: Recipe = {
 
 export default function FormContainer() {
   const [formState, setFormState] = useState(recipeFormInitialState);
+  const handleStateUpdate = (stateSetter: (recipe: Recipe) => Recipe) => {
+    setFormState(prev => stateSetter(prev))
+    showNextElement()
+  }
+
+  const {currentElement, showPreviousElement, showNextElement} = useElementTransition([
+    // IDE warning if I don't put in a key
+    <RecipePrimaryInfoForm key={0}/>,
+    <RecipeIngredientsForm key={1}/>,
+    <RecipeInstructionsForm key={2}/>,
+  ])
 
   return (
-    <>
-      <div>
-        <RecipePrimaryInfoForm formStateSetter={setFormState}/>
-      </div>
-      <StateDebugger state={formState}/>
-    </>
+    <FormContext.Provider value={{
+      formState,
+      stateUpdateHandler: handleStateUpdate,
+      showNextElement,
+      showPreviousElement
+    }}>
+      <Stack gutter="5">
+        {currentElement}
+        <StateDebugger state={formState}/>
+      </Stack>
+    </FormContext.Provider>
   )
 }
