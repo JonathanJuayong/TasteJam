@@ -29,7 +29,6 @@ export default function FormContainer() {
   const [formState, setFormState] = useState(recipeFormInitialState);
   const handleStateUpdate = (stateSetter: (recipe: Recipe) => Recipe) => {
     setFormState(prev => stateSetter(prev))
-    showNextElement()
   }
 
   const {currentElement, showPreviousElement, showNextElement} = useElementTransition([
