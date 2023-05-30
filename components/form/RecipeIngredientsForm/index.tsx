@@ -22,6 +22,7 @@ const defaultValues = {
   ]
 }
 
+const GROUP_LENGTH_LIMIT = 4
 
 export default function RecipeIngredientsForm({formStateSetter}: RecipeIngredientsFormProps) {
   const [formState, setFormState] = useState<IngredientGroup[]>([]);
