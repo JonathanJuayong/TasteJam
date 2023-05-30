@@ -6,10 +6,12 @@ import AddIngredientItems from "@/components/form/RecipeIngredientsForm/AddIngre
 import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/Dialog";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 
-interface IngredientGroupDialogProps {
+interface IngredientGroupDialogProps extends HTMLAttributes<HTMLButtonElement> {
   defaultValues: IngredientGroup
   formStateSetter: Dispatch<SetStateAction<IngredientGroup[]>>
   triggerLabel: string
+  title: string
+  description: string
   enableEdit?: boolean
 }
 
@@ -40,8 +42,8 @@ export default function IngredientGroupDialog({triggerLabel, enableEdit = false,
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger>{triggerLabel}</DialogTrigger>
-      <DialogContent title="Create Ingredient Group" description="">
+      <DialogTrigger className={className} {...props}>{triggerLabel}</DialogTrigger>
+      <DialogContent title={title} description={description}>
         <Input label="Ingredient Group Name" {...register("name")}/>
         <AddIngredientItems control={control} register={register}/>
         <Button onClick={onSubmit}>{buttonText}</Button>
