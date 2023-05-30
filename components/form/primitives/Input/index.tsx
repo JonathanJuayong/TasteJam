@@ -10,7 +10,15 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean
 }
 
-function _Input({label, type = "text", className, required = false, ...props}: InputProps, ref: ForwardedRef<HTMLInputElement>) {
+function _Input(
+  {
+    label,
+    type = "text",
+    className,
+    required = false,
+    ...props
+  }: InputProps, ref: ForwardedRef<HTMLInputElement>
+) {
   const id = useId()
 
   return (

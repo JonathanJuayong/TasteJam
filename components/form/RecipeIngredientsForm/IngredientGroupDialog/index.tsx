@@ -35,7 +35,7 @@ export default function IngredientGroupDialog(
     formStateSetter(prev => {
       if (enableEdit) {
         setIsOpen(false)
-        return prev.map(item => item.name === defaultValues.name ? {...item, ...data} : item )
+        return prev.map(item => item.name === defaultValues.name ? {...item, ...data} : item)
       }
       if (prev.find(item => item.name === data.name)) {
         return prev

@@ -3,7 +3,7 @@ import styles from "./styles.module.scss"
 import theme, {Breakpoints} from "@/utils/theme";
 import Polymorphic, {PolymorphicComponent} from "@/components/Polymorphic";
 
-interface ContainerProps extends PolymorphicComponent<ElementType>{
+interface ContainerProps extends PolymorphicComponent<ElementType> {
   children: ReactNode
   clampWidth?: Breakpoints
 }

@@ -10,7 +10,14 @@ interface DialogContentProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 
-function _DialogContent({title, description,children, ...props}: DialogContentProps, ref: ForwardedRef<HTMLDivElement>) {
+function _DialogContent(
+  {
+    title,
+    description,
+    children,
+    ...props
+  }: DialogContentProps, ref: ForwardedRef<HTMLDivElement>
+) {
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={styles.overlay}/>

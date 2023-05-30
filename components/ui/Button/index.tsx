@@ -2,7 +2,7 @@
 
 import {HTMLAttributes, ReactNode} from "react";
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement>{
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children: ReactNode
   size?: "default"
     | "sm"

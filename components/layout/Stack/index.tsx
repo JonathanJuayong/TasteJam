@@ -3,7 +3,7 @@ import styles from "./styles.module.scss"
 import theme, {Spacing} from "@/utils/theme";
 import Polymorphic, {PolymorphicComponent} from "@/components/Polymorphic";
 
-interface StackProps extends PolymorphicComponent<ElementType>{
+interface StackProps extends PolymorphicComponent<ElementType> {
   children: ReactNode
   gutter?: Spacing
 }
