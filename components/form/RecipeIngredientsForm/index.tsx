@@ -4,7 +4,6 @@ import Stack from "@/components/layout/Stack";
 import IngredientGroupDialog from "@/components/form/RecipeIngredientsForm/IngredientGroupDialog";
 import Inline from "@/components/layout/Inline";
 import Button from "@/components/ui/Button";
-import StateDebugger from "@/components/StateDebugger";
 
 interface RecipeIngredientsFormProps {
   formStateSetter: Dispatch<SetStateAction<Recipe>>
