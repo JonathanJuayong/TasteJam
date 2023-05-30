@@ -4,7 +4,6 @@ import {HTMLAttributes, ReactNode} from "react";
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement>{
   children: ReactNode
-  onClick: () => void
   size?: "default"
     | "sm"
     | "lg"
