@@ -29,8 +29,16 @@ export default function RecipeIngredientsForm({formStateSetter}: RecipeIngredien
     setFormState(prev => prev.filter(item => item.name !== name))
   }
 
+  const handleSubmit = (e: FormEvent<HTMLElement>) => {
+    e.preventDefault()
+    formStateSetter(prev => ({
+      ...prev,
+      ingredients: formState
+    }))
+  }
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <Stack gutter="10">
         {formState.map((data) => (
           <Stack key={`${data.name}`}>
@@ -52,6 +60,6 @@ export default function RecipeIngredientsForm({formStateSetter}: RecipeIngredien
         />
         <StateDebugger state={formState}/>
       </Stack>
-    </>
+    </form>
   )
 }
