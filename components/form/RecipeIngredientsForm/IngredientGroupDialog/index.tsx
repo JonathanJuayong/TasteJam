@@ -36,8 +36,6 @@ export default function IngredientGroupDialog({triggerLabel, enableEdit = false,
     reset(defaultValues)
   }, [defaultValues])
 
-  console.log(watch())
-
   const buttonText = enableEdit ? "Save Changes" : "Add Ingredient Group"
 
   return (
