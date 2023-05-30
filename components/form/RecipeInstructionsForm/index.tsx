@@ -3,15 +3,16 @@ import {Instruction} from "@/utils/types";
 import AddInstructions from "@/components/form/RecipeInstructionsForm/AddInstructions";
 import Stack from "@/components/layout/Stack";
 import Button from "@/components/ui/Button";
-import {useEffect} from "react";
+import {FormEvent, useEffect} from "react";
 import {useRecipeFormContext} from "@/components/form/FormContext";
+import Inline from "@/components/layout/Inline";
 
 export type InstructionsFormValues = {
   instructions: Instruction[]
 }
 
 export default function RecipeInstructionsForm() {
-  const {formState, stateUpdateHandler} = useRecipeFormContext()
+  const {formState, stateUpdateHandler, showPreviousElement, showNextElement} = useRecipeFormContext()
 
   const {control, register, handleSubmit, reset} = useForm<InstructionsFormValues>({
     defaultValues: {
@@ -30,11 +31,22 @@ export default function RecipeInstructionsForm() {
     }))
   })
 
+  const handleShowPrevious = (e: FormEvent<HTMLElement>) => {
+    onSubmit(e).then(() => showPreviousElement())
+  }
+
+  const handleShowNext = (e: FormEvent<HTMLElement>) => {
+    onSubmit(e).then(() => showNextElement())
+  }
+
   return (
-    <form onSubmit={onSubmit}>
+    <form>
       <Stack gutter="6">
         <AddInstructions fieldName="instructions" control={control} register={register}/>
-        <Button onClick={onSubmit}>Submit</Button>
+        <Inline>
+          <Button onClick={handleShowPrevious}>Prev</Button>
+          <Button onClick={handleShowNext}>Next</Button>
+        </Inline>
       </Stack>
     </form>
   )

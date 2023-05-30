@@ -12,7 +12,7 @@ import NumberInput from "@/components/form/primitives/NumberInput";
 import {useRecipeFormContext} from "@/components/form/FormContext";
 
 export default function RecipePrimaryInfoForm() {
-  const {formState, stateUpdateHandler} = useRecipeFormContext()
+  const {formState, stateUpdateHandler, showNextElement} = useRecipeFormContext()
 
   const {register, handleSubmit, reset} = useForm<Recipe>({
     defaultValues: formState
@@ -27,10 +27,11 @@ export default function RecipePrimaryInfoForm() {
       ...prev,
       ...data,
     }))
+    showNextElement()
   })
 
   return (
-    <form onSubmit={onSubmit}>
+    <form>
       <Stack gutter="10">
         <Input label="Recipe Name" {...register("header")} />
         <Input label="Subheader" {...register("subheader")} />
@@ -44,7 +45,7 @@ export default function RecipePrimaryInfoForm() {
           <NumberInput label="Prep Time" {...register("prepTime", {valueAsNumber: true})}/>
           <NumberInput label="Cook Time" {...register("cookTime", {valueAsNumber: true})}/>
         </Inline>
-        <Button onClick={onSubmit}>Submit</Button>
+        <Button onClick={onSubmit}>Next</Button>
       </Stack>
     </form>
   )

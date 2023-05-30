@@ -21,7 +21,7 @@ const defaultValues = {
 const GROUP_LENGTH_LIMIT = 4
 
 export default function RecipeIngredientsForm() {
-  const {formState, stateUpdateHandler} = useRecipeFormContext()
+  const {formState, stateUpdateHandler, showPreviousElement, showNextElement} = useRecipeFormContext()
 
   const [ingredientGroups, setIngredientGroups] = useState<IngredientGroup[]>(formState.ingredients);
   const handleDelete = (name: string) => () => {
@@ -36,8 +36,18 @@ export default function RecipeIngredientsForm() {
     }))
   }
 
+  const handleShowPrevious = (e: FormEvent<HTMLElement>) => {
+    handleSubmit(e)
+    showPreviousElement()
+  }
+
+  const handleShowNext = (e: FormEvent<HTMLElement>) => {
+    handleSubmit(e)
+    showNextElement()
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <Stack gutter="10">
         {ingredientGroups.map((data) => (
           <Stack key={`${data.name}`}>
@@ -65,7 +75,10 @@ export default function RecipeIngredientsForm() {
             formStateSetter={setIngredientGroups}
           />
         )}
-        <Button typeof="submit" onSubmit={handleSubmit}>Submit</Button>
+        <Inline>
+          <Button onClick={handleShowPrevious}>Prev</Button>
+          <Button onClick={handleShowNext}>Next</Button>
+        </Inline>
       </Stack>
     </form>
   )
