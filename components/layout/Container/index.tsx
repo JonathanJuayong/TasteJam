@@ -16,7 +16,7 @@ const twWidths: { [key in Breakpoints]: string } = {
   xxl: "2xl:max-w-6xl"
 }
 
-export default function Container({children, clampWidth = "sm", as = "div", className = ""}: ContainerProps) {
+export default function Container({children, clampWidth = "sm", as = "div", className}: ContainerProps) {
   return (
     <
       Polymorphic
