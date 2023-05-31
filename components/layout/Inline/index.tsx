@@ -1,6 +1,5 @@
 import {ElementType, ReactNode} from "react";
 import Polymorphic, {PolymorphicComponent} from "@/components/Polymorphic";
-import {Spacing} from "@/utils/theme";
 import {cn} from "@/lib/utils";
 
 type JustifyOptions = "center"
@@ -40,7 +39,6 @@ const alignMap: AlignMap = {
 
 interface InlineProps extends PolymorphicComponent<ElementType> {
   children: ReactNode
-  gutter?: Spacing
   justify?: JustifyOptions
   align?: AlignOptions
 }
