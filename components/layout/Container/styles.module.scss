@@ -1,9 +1,0 @@
-@use "styles/utils/breakpoints";
-
-.container {
-  --min-width: 90%;
-  --max-width: var(--min-width);
-
-  max-width: min(var(--min-width), var(--max-width));
-  margin-inline: auto;
-}
