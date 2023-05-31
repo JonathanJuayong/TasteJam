@@ -1,7 +1,8 @@
 import {ElementType, ReactNode} from "react";
-import {Breakpoints} from "@/utils/theme";
 import Polymorphic, {PolymorphicComponent} from "@/components/Polymorphic";
 import {cn} from "@/lib/utils";
+
+type Breakpoints = "sm" | "md" | "lg" | "xl" | "xxl"
 
 interface ContainerProps extends PolymorphicComponent<ElementType> {
   children: ReactNode
