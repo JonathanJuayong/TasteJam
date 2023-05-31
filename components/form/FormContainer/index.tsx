@@ -3,7 +3,6 @@
 import {Recipe} from "@/utils/types";
 import {useState} from "react";
 import RecipePrimaryInfoForm from "@/components/form/RecipePrimaryInfoForm";
-import StateDebugger from "@/components/StateDebugger";
 import RecipeIngredientsForm from "@/components/form/RecipeIngredientsForm";
 import RecipeInstructionsForm from "@/components/form/RecipeInstructionsForm";
 import useElementTransition from "@/utils/hooks/useElementTransition";
@@ -47,7 +46,6 @@ export default function FormContainer() {
     }}>
       <Stack gutter="5">
         {currentElement}
-        <StateDebugger state={formState}/>
       </Stack>
     </FormContext.Provider>
   )
