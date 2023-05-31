@@ -3,7 +3,7 @@ import {IngredientGroup} from "@/utils/types";
 import Stack from "@/components/layout/Stack";
 import IngredientGroupDialog from "@/components/form/RecipeIngredientsForm/IngredientGroupDialog";
 import Inline from "@/components/layout/Inline";
-import Button from "@/components/ui/Button";
+import Button from "@/components/Button";
 import {useRecipeFormContext} from "@/components/form/FormContext";
 
 const defaultValues = {

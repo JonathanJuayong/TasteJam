@@ -1,9 +1,9 @@
 import {useForm} from "react-hook-form";
 import {IngredientGroup} from "@/utils/types";
 import Input from "@/components/form/primitives/Input";
-import Button from "@/components/ui/Button";
+import Button from "@/components/Button";
 import AddIngredientItems from "@/components/form/RecipeIngredientsForm/AddIngredientItems";
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/Dialog";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/Dialog";
 import {Dispatch, HTMLAttributes, SetStateAction, useEffect, useState} from "react";
 
 interface IngredientGroupDialogProps extends HTMLAttributes<HTMLButtonElement> {

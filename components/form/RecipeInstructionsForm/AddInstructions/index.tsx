@@ -4,7 +4,7 @@ import Stack from "@/components/layout/Stack";
 import Inline from "@/components/layout/Inline";
 import Input from "@/components/form/primitives/Input";
 import Textarea from "@/components/form/primitives/Textarea";
-import Button from "@/components/ui/Button";
+import Button from "@/components/Button";
 import {InstructionsFormValues} from "@/components/form/RecipeInstructionsForm";
 
 const defaultValue: Instruction = {

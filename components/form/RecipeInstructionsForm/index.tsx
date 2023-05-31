@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import {Instruction} from "@/utils/types";
 import AddInstructions from "@/components/form/RecipeInstructionsForm/AddInstructions";
 import Stack from "@/components/layout/Stack";
-import Button from "@/components/ui/Button";
+import Button from "@/components/Button";
 import {FormEvent, useEffect} from "react";
 import {useRecipeFormContext} from "@/components/form/FormContext";
 import Inline from "@/components/layout/Inline";

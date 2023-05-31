@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import Input from "@/components/form/primitives/Input";
 import Stack from "@/components/layout/Stack";
 import Textarea from "@/components/form/primitives/Textarea";
-import Button from "@/components/ui/Button";
+import Button from "@/components/Button";
 import React, {useEffect} from "react";
 import {Recipe} from "@/utils/types";
 import Inline from "@/components/layout/Inline";

@@ -4,7 +4,7 @@ import Stack from "@/components/layout/Stack";
 import Inline from "@/components/layout/Inline";
 import Input from "@/components/form/primitives/Input";
 import NumberInput from "@/components/form/primitives/NumberInput";
-import Button from "@/components/ui/Button";
+import Button from "@/components/Button";
 
 interface AddIngredientItemsProps {
   control: Control<IngredientGroup>
