@@ -25,6 +25,8 @@ interface RecipeIngredientsFormProps {
 
 export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
   const mainFieldName = "ingredients" as const
+  const [fieldNames, setFieldNames] = useState<`${typeof mainFieldName}.${number}.name`[]>([`${mainFieldName}.0.name`]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "all",
