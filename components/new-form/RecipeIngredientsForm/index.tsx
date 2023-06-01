@@ -33,8 +33,6 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
     defaultValues
   })
 
-  const [fieldNames, setFieldNames] = useState<`${typeof mainFieldName}.${number}.name`[]>([`${mainFieldName}.0.name`]);
-
   const items = useWatch({
     control: form.control,
     name: fieldNames
@@ -47,6 +45,8 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
       maxLength: CONSTANTS.MAX_FIELD_ARRAY_LENGTH
     }
   })
+
+  const {errors} = form.formState
 
   const handleAddItem = () => append({
     name: "",
