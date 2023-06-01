@@ -27,6 +27,7 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
   const mainFieldName = "ingredients" as const
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "all",
     defaultValues
   })
 
