@@ -10,21 +10,10 @@ import {useEffect, useState} from "react";
 import IngredientsDialog from "@/components/new-form/RecipeIngredientsForm/IngredientsDialog";
 import Inline from "@/components/layout/Inline";
 import {formSchema} from "@/components/new-form/RecipeIngredientsForm/schema";
+import {ErrorMessage} from "@hookform/error-message";
 
 const defaultValues: z.infer<typeof formSchema> = {
-  ingredients: [
-    {
-      name: "",
-      items: [
-        {
-          name: "",
-          note: "",
-          qty: 1,
-          unit: ""
-        }
-      ]
-    }
-  ]
+  ingredients: []
 }
 
 const CONSTANTS = {
