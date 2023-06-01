@@ -24,6 +24,7 @@ interface AddIngredientsDialogProps extends HTMLAttributes<HTMLElement> {
   control: Control<z.infer<typeof formSchema>>
   index: number
   triggerLabel: string
+  triggerVariant: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined
 }
 
 export default function IngredientsDialog(
@@ -55,7 +56,7 @@ export default function IngredientsDialog(
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className={className} type="button">
+        <Button className={className} variant={triggerVariant} type="button">
           {triggerLabel}
         </Button>
       </DialogTrigger>
@@ -139,7 +140,8 @@ export default function IngredientsDialog(
               </Inline>
             ))}
           </Stack>
-          <Button onClick={handleAddItem} type="button">Add new ingredient</Button>
+          <Button variant="secondary" onClick={handleAddItem} type="button">Add new ingredient</Button>
+          <Button type="button" onClick={() => setIsOpen(false)}>Save</Button>
         </Stack>
       </DialogContent>
     </Dialog>
