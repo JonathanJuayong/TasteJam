@@ -90,6 +90,11 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
           )}
           <Button type="submit">Submit</Button>
         </Stack>
+        <ErrorMessage
+          name={mainFieldName}
+          errors={errors}
+          render={({message}) => <p>{message}</p>}
+        />
       </form>
     </Form>
   )
