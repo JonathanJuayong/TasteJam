@@ -26,7 +26,15 @@ interface AddIngredientsDialogProps extends HTMLAttributes<HTMLElement> {
   triggerLabel: string
 }
 
-export default function IngredientsDialog({control, index, triggerLabel, className}: AddIngredientsDialogProps) {
+export default function IngredientsDialog(
+  {
+    control,
+    index,
+    triggerLabel,
+    triggerVariant,
+    className,
+  }: AddIngredientsDialogProps
+) {
   const name = `ingredients.${index}.items` as const
   const {fields, append, remove} = useFieldArray({
     control,
