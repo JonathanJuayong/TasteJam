@@ -83,8 +83,6 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
                 triggerLabel={items[index] ? `Edit ${items[index]} Group` : "No Name Included"}
                 triggerVariant={!items[index] ? "outline" : "default"}
                 className="flex-1"
-                onDialogClose={() => {
-                }}
               />
               {arr.length > 1 && (
                 <Button variant="destructive" onClick={handleDeleteItem(index)}>Delete</Button>
