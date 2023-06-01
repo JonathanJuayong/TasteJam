@@ -1,6 +1,6 @@
 import {ReactElement, useState} from "react";
 
-export default function useElementTransition(elements: ReactElement[]) {
+export default function useComponentTransition(elements: ReactElement[]) {
   const [activeIndex, setActiveIndex] = useState(0);
   const showNextElement = () => {
     if (activeIndex < elements.length - 1) {
