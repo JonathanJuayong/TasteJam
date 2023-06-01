@@ -40,7 +40,6 @@ export default function RecipeInfoForm() {
           render={({field}) => (
             <FormTextInput
               label="Recipe Name"
-              tooltip="Enter the name of your recipe"
               {...field}
             />
           )}
@@ -51,7 +50,6 @@ export default function RecipeInfoForm() {
           render={({field}) => (
             <FormTextInput
               label="Recipe Subheader"
-              tooltip="Enter a subheader for your recipe"
               {...field}
             />
           )}
@@ -62,7 +60,6 @@ export default function RecipeInfoForm() {
           render={({field}) => (
             <FormTextarea
               label="Description"
-              tooltip="Write a brief description for your recipe"
               {...field}
             />
           )}
@@ -74,7 +71,6 @@ export default function RecipeInfoForm() {
             render={({field}) => (
               <FormNumberInput
                 label="Serves"
-                tooltip="How many people will be able to enjoy this recipe"
                 {...field}
               />
             )}
@@ -85,7 +81,6 @@ export default function RecipeInfoForm() {
             render={({field}) => (
               <FormNumberInput
                 label="Prep time"
-                tooltip="Prep time in minutes"
                 {...field}
               />
             )}
@@ -96,7 +91,6 @@ export default function RecipeInfoForm() {
             render={({field}) => (
               <FormNumberInput
                 label="Cook Time"
-                tooltip="Cook time in minutes"
                 {...field}
               />
             )}
