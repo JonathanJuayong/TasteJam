@@ -17,7 +17,7 @@ import {Separator} from "@/components/ui/separator";
 import FormNumberInput from "@/components/new-form/primitives/FormNumberInput";
 import {cn} from "@/lib/utils";
 import {X} from "lucide-react";
-import {HTMLAttributes} from "react";
+import {HTMLAttributes, useState} from "react";
 import {formSchema} from "@/components/new-form/RecipeIngredientsForm/schema";
 
 interface AddIngredientsDialogProps extends HTMLAttributes<HTMLElement> {
@@ -40,10 +40,12 @@ export default function IngredientsDialog({control, index, triggerLabel, classNa
     note: ""
   })
 
+  const [isOpen, setIsOpen] = useState(true);
+
   const handleDeleteItem = (index: number) => () => remove(index)
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className={className} type="button">
           {triggerLabel}
