@@ -1,28 +1,19 @@
-import {ControllerRenderProps, FieldValues} from "react-hook-form";
-import {WithLabelAndTooltipProps} from "@/utils/types";
-import Inline from "@/components/layout/Inline";
-import {FormControl, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {Input} from "@/components/ui/input";
+import FormPrimitiveWrapper from "@/components/new-form/primitives/FormPrimitiveWrapper";
+import {ForwardedRef, forwardRef, HTMLAttributes} from "react";
 
-interface FormNumberInputProps extends ControllerRenderProps<FieldValues, string>, WithLabelAndTooltipProps {}
+interface FormNumberInputProps extends HTMLAttributes<HTMLInputElement> {
+  label: string
+}
 
-export default function FormNumberInput({label, tooltip, ...field}: FormNumberInputProps) {
+function _FormNumberInput({label, ...props}: FormNumberInputProps, ref: ForwardedRef<HTMLInputElement>) {
   return (
-    <FormItem>
-      <Inline justify="start" align="center" className="gap-2">
-        <FormLabel>{label}</FormLabel>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger type="button" className="text-xs text-gray-600">&#x24D8;</TooltipTrigger>
-            <TooltipContent>{tooltip}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </Inline>
-      <FormControl>
-        <Input type="number" {...field}/>
-      </FormControl>
-      <FormMessage/>
-    </FormItem>
+    <FormPrimitiveWrapper label={label}>
+      <Input type="number" {...props} ref={ref}/>
+    </FormPrimitiveWrapper>
   )
 }
+
+const FormNumberInput = forwardRef(_FormNumberInput)
+
+export default FormNumberInput
