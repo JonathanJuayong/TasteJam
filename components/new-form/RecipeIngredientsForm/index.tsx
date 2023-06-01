@@ -39,6 +39,7 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
     control: form.control,
     name: fieldNames
   })
+
   const {fields, append, remove} = useFieldArray({
     control: form.control,
     name: mainFieldName,
@@ -79,9 +80,11 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
               <IngredientsDialog
                 control={form.control}
                 index={index}
-                triggerLabel={items[index] ? `Edit ${items[index]} Group` : "Add new ingredient group"}
+                triggerLabel={items[index] ? `Edit ${items[index]} Group` : "No Name Included"}
+                triggerVariant={!items[index] ? "outline" : "default"}
                 className="flex-1"
-                onDialogClose={() => {}}
+                onDialogClose={() => {
+                }}
               />
               {arr.length > 1 && (
                 <Button variant="destructive" onClick={handleDeleteItem(index)}>Delete</Button>
@@ -89,7 +92,7 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
             </Inline>
           ))}
           {fields.length < CONSTANTS.MAX_FIELD_ARRAY_LENGTH && (
-            <Button onClick={handleAddItem} type="button">Add</Button>
+            <Button variant="secondary" onClick={handleAddItem} type="button">Add Ingredient Group</Button>
           )}
           <Button type="submit">Submit</Button>
         </Stack>
