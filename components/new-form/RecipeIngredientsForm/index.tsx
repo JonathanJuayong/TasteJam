@@ -27,6 +27,10 @@ const defaultValues: z.infer<typeof formSchema> = {
   ]
 }
 
+const CONSTANTS = {
+  MAX_FIELD_ARRAY_LENGTH: 4
+}
+
 interface RecipeIngredientsFormProps {
 }
 
@@ -45,7 +49,10 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
   })
   const {fields, append, remove} = useFieldArray({
     control: form.control,
-    name: mainFieldName
+    name: mainFieldName,
+    rules: {
+      maxLength: CONSTANTS.MAX_FIELD_ARRAY_LENGTH
+    }
   })
 
   const handleAddItem = () => append({
@@ -73,22 +80,28 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
 
   return (
     <Form {...form}>
-      <Stack className="gap-10">
-        {fields.map((field, index, arr) => (
-          <Inline justify="start" className="gap-5" key={field.id}>
-            <IngredientsDialog
-              control={form.control}
-              index={index}
-              triggerLabel={items[index] ? `Edit ${items[index]} group` : "Add new ingredient group"}
-              className="flex-1"
-            />
-            {arr.length > 1 && (
-              <Button onClick={handleDeleteItem(index)}>Delete</Button>
-            )}
-          </Inline>
-        ))}
-        <Button onClick={handleAddItem} type="button">Add</Button>
-      </Stack>
+      <form onSubmit={handleOnSubmit}>
+        <Stack className="gap-10">
+          {fields.map((field, index, arr) => (
+            <Inline justify="start" className="gap-5" key={field.id}>
+              <IngredientsDialog
+                control={form.control}
+                index={index}
+                triggerLabel={items[index] ? `Edit ${items[index]} Group` : "Add new ingredient group"}
+                className="flex-1"
+                onDialogClose={() => {}}
+              />
+              {arr.length > 1 && (
+                <Button variant="destructive" onClick={handleDeleteItem(index)}>Delete</Button>
+              )}
+            </Inline>
+          ))}
+          {fields.length < CONSTANTS.MAX_FIELD_ARRAY_LENGTH && (
+            <Button onClick={handleAddItem} type="button">Add</Button>
+          )}
+          <Button type="submit">Submit</Button>
+        </Stack>
+      </form>
     </Form>
   )
 }
