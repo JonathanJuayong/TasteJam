@@ -1,12 +1,8 @@
 "use client"
 
 import {Recipe} from "@/utils/types";
-import {useState} from "react";
-import RecipePrimaryInfoForm from "@/components/form/RecipePrimaryInfoForm";
-import RecipeIngredientsForm from "@/components/form/RecipeIngredientsForm";
-import RecipeInstructionsForm from "@/components/form/RecipeInstructionsForm";
-import useElementTransition from "@/utils/hooks/useElementTransition";
-import Stack from "@/components/layout/Stack";
+import {ReactElement, useState} from "react";
+import useComponentTransition from "@/utils/hooks/useComponentTransition";
 import {FormContext} from "@/components/form/FormContext";
 
 const recipeFormInitialState: Recipe = {
@@ -24,18 +20,17 @@ const recipeFormInitialState: Recipe = {
   allergens: [],
 }
 
-export default function FormContainer() {
+interface FormContainerProps {
+  components: ReactElement[]
+}
+
+export default function FormContainer({components}: FormContainerProps) {
   const [formState, setFormState] = useState(recipeFormInitialState);
   const handleStateUpdate = (stateSetter: (recipe: Recipe) => Recipe) => {
     setFormState(prev => stateSetter(prev))
   }
 
-  const {currentElement, showPreviousElement, showNextElement} = useElementTransition([
-    // IDE warning if I don't put in a key
-    <RecipePrimaryInfoForm key={0}/>,
-    <RecipeIngredientsForm key={1}/>,
-    <RecipeInstructionsForm key={2}/>,
-  ])
+  const {currentElement, showPreviousElement, showNextElement} = useComponentTransition(components)
 
   return (
     <FormContext.Provider value={{
@@ -44,9 +39,7 @@ export default function FormContainer() {
       showNextElement,
       showPreviousElement
     }}>
-      <Stack gutter="5">
-        {currentElement}
-      </Stack>
+      {currentElement}
     </FormContext.Provider>
   )
 }
