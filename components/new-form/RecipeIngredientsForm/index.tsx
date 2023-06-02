@@ -76,18 +76,22 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
       <form onSubmit={handleOnSubmit}>
         <Stack className="gap-10">
           {fields.map((field, index, arr) => (
-            <Inline justify="start" className="gap-5" key={field.id}>
-              <IngredientsDialog
-                control={form.control}
-                index={index}
-                triggerLabel={items[index] ? `Edit ${items[index]} Group` : "No Name Included"}
-                triggerVariant={!items[index] ? "outline" : "default"}
-                className="flex-1"
-              />
-              {arr.length > 1 && (
-                <Button variant="destructive" onClick={handleDeleteItem(index)}>Delete</Button>
-              )}
-            </Inline>
+            <Card key={field.id}>
+              <CardContent className="relative">
+                {arr.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    className="absolute right-0 top-1 rounded-full h-10 w-10 p-1"
+                    onClick={handleDeleteItem(index)} type="button"
+                  >
+                    <X className="h-4 w-4"/>
+                  </Button>
+                )}
+                <CardHeader>
+                </CardHeader>
+                <AddIngredientsField control={form.control} index={index}/>
+              </CardContent>
+            </Card>
           ))}
           {fields.length < CONSTANTS.MAX_FIELD_ARRAY_LENGTH && (
             <Button variant="secondary" onClick={handleAddItem} type="button">Add Ingredient Group</Button>
