@@ -105,7 +105,7 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
             </Card>
           ))}
           {fields.length < CONSTANTS.MAX_FIELD_ARRAY_LENGTH && (
-            <Button variant="secondary" onClick={handleAddItem} type="button">Add Ingredient Group</Button>
+            <Button variant="ghost" onClick={handleAddItem} type="button"><PlusCircle/></Button>
           )}
           <Inline>
             <Button onClick={handleShowPrevious} type="button">Prev</Button>
