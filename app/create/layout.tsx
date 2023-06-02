@@ -6,7 +6,7 @@ interface NewPageLayoutProps {
   children: ReactNode
 }
 
-export default function NewPageLayout({children}: NewPageLayoutProps) {
+export default function CreatePageLayout({children}: NewPageLayoutProps) {
   return (
     <Container className="py-10">
       {children}

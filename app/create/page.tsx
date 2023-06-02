@@ -3,7 +3,7 @@ import RecipeIngredientsForm from "@/components/form/RecipeIngredientsForm";
 import RecipeInstructionsForm from "@/components/form/RecipeInstructionsForm";
 import FormContainer from "@/components/form/FormContainer";
 
-export default function NewPage() {
+export default function CreatePage() {
   const components = [
     <RecipeInfoForm key={0}/>,
     <RecipeIngredientsForm key={1}/>,
