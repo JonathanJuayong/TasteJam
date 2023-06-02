@@ -1,7 +1,7 @@
 "use client"
 
 import {z} from "zod";
-import {useFieldArray, useForm, useWatch} from "react-hook-form";
+import {useFieldArray, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form} from "@/components/ui/form";
 import Stack from "@/components/layout/Stack";
@@ -25,17 +25,13 @@ interface RecipeIngredientsFormProps {
 
 export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
   const mainFieldName = "ingredients" as const
-  const [fieldNames, setFieldNames] = useState<`${typeof mainFieldName}.${number}.name`[]>([`${mainFieldName}.0.name`]);
+
+  const {formState, stateUpdateHandler, showPreviousElement, showNextElement} = useRecipeFormContext()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "all",
     defaultValues
-  })
-
-  const items = useWatch({
-    control: form.control,
-    name: fieldNames
   })
 
   const {fields, append, remove} = useFieldArray({
