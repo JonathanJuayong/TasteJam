@@ -9,11 +9,28 @@ const recipeFormInitialState: Recipe = {
   header: "",
   subheader: "",
   description: "",
-  serves: 0,
-  prepTime: 0,
-  cookTime: 0,
-  ingredients: [],
-  instructions: [],
+  serves: 1,
+  prepTime: 1,
+  cookTime: 1,
+  ingredients: [
+    {
+      name: "Main",
+      items: [
+        {
+          name: "",
+          qty: 1,
+          unit: "",
+          note: ""
+        }
+      ]
+    }
+  ],
+  instructions: [
+    {
+      image: "",
+      description: ""
+    }
+  ],
   author: "",
   images: [],
   equipment: [],
