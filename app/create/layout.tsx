@@ -1,14 +1,16 @@
 import {ReactNode} from "react";
 import Container from "@/components/layout/Container";
+import {Toaster} from "@/components/ui/toast";
 
-interface CreatePageLayoutProps {
+interface NewPageLayoutProps {
   children: ReactNode
 }
 
-export default function CreatePageLayout({children}: CreatePageLayoutProps) {
+export default function CreatePageLayout({children}: NewPageLayoutProps) {
   return (
-    <Container>
+    <Container className="py-10">
       {children}
+      <Toaster/>
     </Container>
-  )
+)
 }

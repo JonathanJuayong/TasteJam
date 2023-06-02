@@ -1,85 +1,123 @@
-import {FormEvent, useState} from "react";
-import {IngredientGroup} from "@/utils/types";
-import Stack from "@/components/layout/Stack";
-import IngredientGroupDialog from "@/components/form/RecipeIngredientsForm/IngredientGroupDialog";
-import Inline from "@/components/layout/Inline";
-import Button from "@/components/ui/Button";
-import {useRecipeFormContext} from "@/components/form/FormContext";
+"use client"
 
-const defaultValues = {
-  name: "",
-  items: [
-    {
-      name: "",
-      unit: "",
-      qty: 1,
-      note: ""
-    },
-  ]
+import {z} from "zod";
+import {useFieldArray, useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {Form} from "@/components/ui/form";
+import Stack from "@/components/layout/Stack";
+import {Button} from "@/components/ui/button";
+import {useEffect} from "react";
+import Inline from "@/components/layout/Inline";
+import {formSchema} from "@/components/form/RecipeIngredientsForm/schema";
+import {ErrorMessage} from "@hookform/error-message";
+import {useRecipeFormContext} from "@/components/form/FormContext";
+import AddIngredientsField from "@/components/form/RecipeIngredientsForm/AddIngredientsField";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {PlusCircle, X} from "lucide-react";
+
+const defaultValues: z.infer<typeof formSchema> = {
+  ingredients: []
 }
 
-const GROUP_LENGTH_LIMIT = 4
+const CONSTANTS = {
+  MAX_FIELD_ARRAY_LENGTH: 4
+}
 
-export default function RecipeIngredientsForm() {
+interface RecipeIngredientsFormProps {
+}
+
+export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
+  const mainFieldName = "ingredients" as const
+
   const {formState, stateUpdateHandler, showPreviousElement, showNextElement} = useRecipeFormContext()
 
-  const [ingredientGroups, setIngredientGroups] = useState<IngredientGroup[]>(formState.ingredients);
-  const handleDelete = (name: string) => () => {
-    setIngredientGroups(prev => prev.filter(item => item.name !== name))
-  }
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: "all",
+    defaultValues
+  })
 
-  const handleSubmit = (e: FormEvent<HTMLElement>) => {
-    e.preventDefault()
+  const {fields, append, remove} = useFieldArray({
+    control: form.control,
+    name: mainFieldName,
+    rules: {
+      maxLength: CONSTANTS.MAX_FIELD_ARRAY_LENGTH
+    }
+  })
+
+  const {errors} = form.formState
+
+  const handleAddItem = () => append({
+    name: "",
+    items: [
+      {
+        name: "",
+        note: "",
+        qty: 1,
+        unit: ""
+      }
+    ]
+  })
+
+  const handleDeleteItem = (index: number) => () => remove(index)
+
+  const handleUpdateFormState = (data: z.infer<typeof formSchema>) => {
     stateUpdateHandler(prev => ({
       ...prev,
-      ingredients: ingredientGroups
+      ...data
     }))
   }
 
-  const handleShowPrevious = (e: FormEvent<HTMLElement>) => {
-    handleSubmit(e)
+  const handleShowPrevious = form.handleSubmit(data => {
+    handleUpdateFormState(data)
     showPreviousElement()
-  }
+  })
 
-  const handleShowNext = (e: FormEvent<HTMLElement>) => {
-    handleSubmit(e)
+  const handleShowNext = form.handleSubmit(data => {
+    handleUpdateFormState(data)
     showNextElement()
-  }
+  })
+
+  useEffect(() => {
+    form.reset(formState)
+  }, [formState])
 
   return (
-    <form>
-      <Stack gutter="10">
-        {ingredientGroups.map((data) => (
-          <Stack key={`${data.name}`}>
-            <Inline gutter="5">
-              <Inline.Stretch>
-                <IngredientGroupDialog
-                  title={`Edit Group ${data.name}`}
-                  description=""
-                  triggerLabel={`Edit Group ${data.name}`}
-                  defaultValues={data}
-                  formStateSetter={setIngredientGroups}
-                  enableEdit
-                />
-              </Inline.Stretch>
-              <Button onClick={handleDelete(data.name)}>X</Button>
-            </Inline>
-          </Stack>
-        ))}
-        {ingredientGroups.length < GROUP_LENGTH_LIMIT && (
-          <IngredientGroupDialog
-            title="Create Ingredient Group"
-            description=""
-            triggerLabel="Add Ingredient Group"
-            defaultValues={defaultValues}
-            formStateSetter={setIngredientGroups}
-          />
-        )}
-        <Inline>
-          <Button onClick={handleShowPrevious}>Prev</Button>
-          <Button onClick={handleShowNext}>Next</Button>
-        </Inline>
-      </Stack>
-    </form>
+    <Form {...form}>
+      <form>
+        <Stack className="gap-10">
+          {fields.map((field, index, arr) => (
+            <Card key={field.id}>
+              <CardContent className="relative">
+                {arr.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    className="absolute right-0 top-1 rounded-full h-10 w-10 p-1"
+                    onClick={handleDeleteItem(index)} type="button"
+                  >
+                    <X className="h-4 w-4"/>
+                  </Button>
+                )}
+                <CardHeader>
+                </CardHeader>
+                <AddIngredientsField control={form.control} index={index}/>
+              </CardContent>
+            </Card>
+          ))}
+          {fields.length < CONSTANTS.MAX_FIELD_ARRAY_LENGTH && (
+            <Button variant="ghost" onClick={handleAddItem} type="button"><PlusCircle/></Button>
+          )}
+          <Inline>
+            <Button onClick={handleShowPrevious} type="button">Prev</Button>
+            <Button onClick={handleShowNext} type="button">Next</Button>
+          </Inline>
+        </Stack>
+        <ErrorMessage
+          name={mainFieldName}
+          errors={errors}
+          render={({message}) => <p>{message}</p>}
+        />
+      </form>
+    </Form>
   )
 }

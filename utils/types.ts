@@ -1,3 +1,5 @@
+import {ReactNode} from "react";
+
 export interface IngredientItem {
   name: string
   unit: string
@@ -28,4 +30,9 @@ export interface Recipe {
   images: string[]
   equipment: string[]
   allergens: string[]
+}
+
+export interface WithLabelAndTooltipProps {
+  label: string
+  tooltip: ReactNode
 }
