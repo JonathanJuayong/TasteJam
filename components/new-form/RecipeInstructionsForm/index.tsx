@@ -45,28 +45,47 @@ export default function RecipeInstructionsForm({}: RecipeInstructionsFormProps) 
     <Form {...form}>
       <form onSubmit={handleSubmit}>
         <Stack className="gap-10">
-          {fields.map((field, index) => (
-            <Stack key={field.id} className="gap-5">
-              {index > 0 && (<Separator className="my-5" />)}
-              <FormTextInput label="Image Src" {...field}/>
-              <FormTextArea label="Description" {...field}/>
-              <Button
-                variant="destructive"
-                type="button"
-                onClick={handleDeleteItem(index)}
-              >
-                Delete
-              </Button>
-            </Stack>
+          {fields.map((field, index, arr) => (
+            <Card key={field.id}>
+              <CardContent className="relative">
+                <CardHeader className="px-0">
+                  Step # {index + 1}
+                </CardHeader>
+                <Stack key={field.id} className="gap-5">
+                  <FormField
+                    control={form.control}
+                    name={`${mainFieldName}.${index}.image`}
+                    render={({field: f}) => (
+                      <FormTextInput label="Image Src" {...f}/>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`${mainFieldName}.${index}.description`}
+                    render={({field: f}) => (
+                      <FormTextArea label="Description" {...f}/>
+                    )}
+                  />
+                </Stack>
+                <CardFooter>
+                </CardFooter>
+                {arr.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    className="absolute right-0 top-1 rounded-full h-10 w-10 p-1"
+                    onClick={handleDeleteItem(index)} type="button"
+                  >
+                    <X className="h-4 w-4"/>
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
           ))}
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={handleAddItem}
-          >
-            Add Instruction
-          </Button>
-          <Button type="submit">Submit</Button>
+          <Button variant="ghost" onClick={handleAddItem} type="button"><PlusCircle/></Button>
+          <Inline>
+            <Button onClick={handleShowPrevious} type="button">Prev</Button>
+            <Button onClick={handleShowNext} type="button">Next</Button>
+          </Inline>
         </Stack>
       </form>
     </Form>
