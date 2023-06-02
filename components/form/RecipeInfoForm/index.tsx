@@ -14,17 +14,11 @@ import {formSchema} from "@/components/form/RecipeInfoForm/schema";
 import {useRecipeFormContext} from "@/components/form/FormContext";
 import {useEffect} from "react";
 
-const defaultValues = {
-  header: "Fried Chicken",
-  subheader: "The best fried chicken you will ever taste",
-  description: "This recipe is imported from the middle east.",
-  cookTime: 1,
-  prepTime: 1,
-  serves: 1,
-};
-
 export default function RecipeInfoForm() {
   const {formState, stateUpdateHandler, showNextElement} = useRecipeFormContext()
+
+  const {header, subheader, description, cookTime, prepTime, serves} = formState
+  const defaultValues = {header, subheader, description, cookTime, prepTime, serves}
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
