@@ -47,14 +47,15 @@ export default function FormContainer({components}: FormContainerProps) {
     setFormState(prev => stateSetter(prev))
   }
 
-  const {currentElement, showPreviousElement, showNextElement} = useComponentTransition(components)
+  const {currentElement, showPreviousElement, showNextElement, jumpTo} = useComponentTransition(components)
 
   return (
     <FormContext.Provider value={{
       formState,
       stateUpdateHandler: handleStateUpdate,
       showNextElement,
-      showPreviousElement
+      showPreviousElement,
+      jumpTo
     }}>
       {currentElement}
     </FormContext.Provider>

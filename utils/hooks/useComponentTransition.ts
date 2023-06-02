@@ -14,10 +14,13 @@ export default function useComponentTransition(elements: ReactElement[]) {
     }
   }
 
+  const jumpTo = (index: number) => setActiveIndex(index)
+
   return {
     currentElement: elements[activeIndex],
     activeIndex,
     showNextElement,
-    showPreviousElement
+    showPreviousElement,
+    jumpTo
   }
 }
