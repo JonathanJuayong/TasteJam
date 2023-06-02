@@ -11,9 +11,9 @@ export const ingredientItemSchema = z.object({
     message: "Ingredient name cannot be empty"
   }),
   unit: z.string().min(CONSTANTS.MIN_NAME_LENGTH, {
-    message: "Ingredient name cannot be empty"
+    message: "Unit cannot be empty"
   }),
-  qty: z.number()
+  qty: z.coerce.number()
     .gt(0, {
       message: "Qty must be greater than 0"
     })
