@@ -1,53 +1,117 @@
-import {useForm} from "react-hook-form";
-import {Instruction} from "@/utils/types";
-import AddInstructions from "@/components/form/RecipeInstructionsForm/AddInstructions";
+"use client"
+
+import {useFieldArray, useForm} from "react-hook-form";
+import {z} from "zod";
+import {formSchema} from "@/components/form/RecipeInstructionsForm/schema";
+import {Form, FormField} from "@/components/ui/form";
+import {zodResolver} from "@hookform/resolvers/zod";
 import Stack from "@/components/layout/Stack";
-import Button from "@/components/Button";
-import {FormEvent, useEffect} from "react";
+import FormTextInput from "@/components/form/primitives/FormTextInput";
+import FormTextArea from "@/components/form/primitives/FormTextarea";
+import {Button} from "@/components/ui/button";
 import {useRecipeFormContext} from "@/components/form/FormContext";
 import Inline from "@/components/layout/Inline";
+import {useEffect} from "react";
+import {PlusCircle, X} from "lucide-react";
+import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card";
 
-export type InstructionsFormValues = {
-  instructions: Instruction[]
+const defaultValues: z.infer<typeof formSchema> = {
+  instructions: []
 }
 
-export default function RecipeInstructionsForm() {
-  const {formState, stateUpdateHandler, showPreviousElement, showNextElement} = useRecipeFormContext()
+interface RecipeInstructionsFormProps {
+}
 
-  const {control, register, handleSubmit, reset} = useForm<InstructionsFormValues>({
-    defaultValues: {
-      instructions: formState.instructions
-    }
+export default function RecipeInstructionsForm({}: RecipeInstructionsFormProps) {
+  const mainFieldName = "instructions"
+
+  const {formState, stateUpdateHandler, showPreviousElement, showNextElement} = useRecipeFormContext()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    mode: "all",
+    defaultValues
   })
 
-  useEffect(() => {
-    reset(formState)
-  }, [formState])
+  const {fields, append, remove} = useFieldArray({
+    control: form.control,
+    name: mainFieldName
+  })
 
-  const onSubmit = handleSubmit(data => {
+  const handleUpdateState = (data: z.infer<typeof formSchema>) => {
     stateUpdateHandler(prev => ({
       ...prev,
-      instructions: data.instructions
+      ...data
     }))
+  }
+
+  const handleShowPrevious = form.handleSubmit(data => {
+    handleUpdateState(data)
+    showPreviousElement()
   })
 
-  const handleShowPrevious = (e: FormEvent<HTMLElement>) => {
-    onSubmit(e).then(() => showPreviousElement())
-  }
+  const handleShowNext = form.handleSubmit(data => {
+    handleUpdateState(data)
+    showNextElement()
+  })
 
-  const handleShowNext = (e: FormEvent<HTMLElement>) => {
-    onSubmit(e).then(() => showNextElement())
-  }
+  const handleAddItem = () => append({
+    image: "",
+    description: ""
+  })
+
+  const handleDeleteItem = (index: number) => () => remove(index)
+
+  useEffect(() => {
+    form.reset(formState)
+  }, [formState])
 
   return (
-    <form>
-      <Stack gutter="6">
-        <AddInstructions fieldName="instructions" control={control} register={register}/>
-        <Inline>
-          <Button onClick={handleShowPrevious}>Prev</Button>
-          <Button onClick={handleShowNext}>Next</Button>
-        </Inline>
-      </Stack>
-    </form>
+    <Form {...form}>
+      <form>
+        <Stack className="gap-10">
+          {fields.map((field, index, arr) => (
+            <Card key={field.id}>
+              <CardContent className="relative">
+                <CardHeader className="px-0">
+                  Step # {index + 1}
+                </CardHeader>
+                <Stack key={field.id} className="gap-5">
+                  <FormField
+                    control={form.control}
+                    name={`${mainFieldName}.${index}.image`}
+                    render={({field: f}) => (
+                      <FormTextInput label="Image Src" {...f}/>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`${mainFieldName}.${index}.description`}
+                    render={({field: f}) => (
+                      <FormTextArea label="Description" {...f}/>
+                    )}
+                  />
+                </Stack>
+                <CardFooter>
+                </CardFooter>
+                {arr.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    className="absolute right-0 top-1 rounded-full h-10 w-10 p-1"
+                    onClick={handleDeleteItem(index)} type="button"
+                  >
+                    <X className="h-4 w-4"/>
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+          <Button variant="ghost" onClick={handleAddItem} type="button"><PlusCircle/></Button>
+          <Inline>
+            <Button onClick={handleShowPrevious} type="button">Prev</Button>
+            <Button onClick={handleShowNext} type="button">Next</Button>
+          </Inline>
+        </Stack>
+      </form>
+    </Form>
   )
 }

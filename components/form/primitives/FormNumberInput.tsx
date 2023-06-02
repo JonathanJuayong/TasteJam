@@ -1,5 +1,5 @@
 import {Input} from "@/components/ui/input";
-import FormPrimitiveWrapper from "@/components/new-form/primitives/FormPrimitiveWrapper";
+import FormPrimitiveWrapper from "@/components/form/primitives/FormPrimitiveWrapper";
 import {ForwardedRef, forwardRef, HTMLAttributes} from "react";
 
 interface FormNumberInputProps extends HTMLAttributes<HTMLInputElement> {

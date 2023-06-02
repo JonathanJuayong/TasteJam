@@ -1,6 +1,6 @@
 import {Textarea} from "@/components/ui/textarea";
 import {ForwardedRef, forwardRef, HTMLAttributes} from "react";
-import FormPrimitiveWrapper from "@/components/new-form/primitives/FormPrimitiveWrapper";
+import FormPrimitiveWrapper from "@/components/form/primitives/FormPrimitiveWrapper";
 
 interface FormTextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
   label: string

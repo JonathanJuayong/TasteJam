@@ -1,15 +1,15 @@
 import Stack from "@/components/layout/Stack";
 import {FormField} from "@/components/ui/form";
-import FormTextInput from "@/components/new-form/primitives/FormTextInput";
+import FormTextInput from "@/components/form/primitives/FormTextInput";
 import Inline from "@/components/layout/Inline";
 import {Separator} from "@/components/ui/separator";
-import FormNumberInput from "@/components/new-form/primitives/FormNumberInput";
+import FormNumberInput from "@/components/form/primitives/FormNumberInput";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import {X} from "lucide-react";
 import {Control, useFieldArray} from "react-hook-form";
 import {z} from "zod";
-import {formSchema} from "@/components/new-form/RecipeIngredientsForm/schema";
+import {formSchema} from "@/components/form/RecipeIngredientsForm/schema";
 
 interface AddIngredientsFieldProps {
   control: Control<z.infer<typeof formSchema>>

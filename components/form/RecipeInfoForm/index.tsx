@@ -7,10 +7,10 @@ import {Form, FormField} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
 import Stack from "@/components/layout/Stack";
 import Inline from "@/components/layout/Inline";
-import FormTextInput from "@/components/new-form/primitives/FormTextInput";
-import FormTextarea from "@/components/new-form/primitives/FormTextarea";
-import FormNumberInput from "@/components/new-form/primitives/FormNumberInput";
-import {formSchema} from "@/components/new-form/RecipeInfoForm/schema";
+import FormTextInput from "@/components/form/primitives/FormTextInput";
+import FormTextarea from "@/components/form/primitives/FormTextarea";
+import FormNumberInput from "@/components/form/primitives/FormNumberInput";
+import {formSchema} from "@/components/form/RecipeInfoForm/schema";
 import {useRecipeFormContext} from "@/components/form/FormContext";
 import {useEffect} from "react";
 
