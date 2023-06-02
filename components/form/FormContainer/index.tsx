@@ -37,6 +37,38 @@ const recipeFormInitialState: Recipe = {
   allergens: [],
 }
 
+// const recipeFormInitialState: Recipe = {
+//   header: "Fried Chicken",
+//   subheader: "The best fried chicken you'll ever taste",
+//   description: "This is a test description",
+//   serves: 1,
+//   prepTime: 1,
+//   cookTime: 1,
+//   ingredients: [
+//     {
+//       name: "Main",
+//       items: [
+//         {
+//           name: "Garlic",
+//           qty: 1,
+//           unit: "clove",
+//           note: "Preferably fresh"
+//         }
+//       ]
+//     }
+//   ],
+//   instructions: [
+//     {
+//       image: "image.png",
+//       description: "Chop the garlic into pieces or something"
+//     }
+//   ],
+//   author: "",
+//   images: [],
+//   equipment: [],
+//   allergens: [],
+// }
+
 interface FormContainerProps {
   components: ReactElement[]
 }
