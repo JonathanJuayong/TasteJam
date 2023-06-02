@@ -11,6 +11,8 @@ import FormTextInput from "@/components/new-form/primitives/FormTextInput";
 import FormTextarea from "@/components/new-form/primitives/FormTextarea";
 import FormNumberInput from "@/components/new-form/primitives/FormNumberInput";
 import {formSchema} from "@/components/new-form/RecipeInfoForm/schema";
+import {useRecipeFormContext} from "@/components/form/FormContext";
+import {useEffect} from "react";
 
 const defaultValues = {
   header: "Fried Chicken",
@@ -22,13 +24,24 @@ const defaultValues = {
 };
 
 export default function RecipeInfoForm() {
+  const {formState, stateUpdateHandler, showNextElement} = useRecipeFormContext()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues
   })
 
+  useEffect(() => {
+    form.reset(formState)
+  }, [formState])
+
   const handleOnSubmit = form.handleSubmit(data => {
     console.log(data)
+    stateUpdateHandler(prev => ({
+      ...prev,
+      ...data
+    }))
+    showNextElement()
   })
 
   return <Form {...form}>
@@ -96,7 +109,9 @@ export default function RecipeInfoForm() {
             )}
           />
         </Inline>
-        <Button onClick={handleOnSubmit}>Submit</Button>
+        <Inline justify="end">
+          <Button onClick={handleOnSubmit}>Next</Button>
+        </Inline>
       </Stack>
     </form>
   </Form>

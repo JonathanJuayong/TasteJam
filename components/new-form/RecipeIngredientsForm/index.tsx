@@ -6,11 +6,14 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form} from "@/components/ui/form";
 import Stack from "@/components/layout/Stack";
 import {Button} from "@/components/ui/button";
-import {useEffect, useState} from "react";
-import IngredientsDialog from "@/components/new-form/RecipeIngredientsForm/IngredientsDialog";
+import {useEffect} from "react";
 import Inline from "@/components/layout/Inline";
 import {formSchema} from "@/components/new-form/RecipeIngredientsForm/schema";
 import {ErrorMessage} from "@hookform/error-message";
+import {useRecipeFormContext} from "@/components/form/FormContext";
+import AddIngredientsField from "@/components/new-form/RecipeIngredientsForm/AddIngredientsField";
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {PlusCircle, X} from "lucide-react";
 
 const defaultValues: z.infer<typeof formSchema> = {
   ingredients: []
@@ -58,18 +61,30 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
 
   const handleDeleteItem = (index: number) => () => remove(index)
 
-  const handleOnSubmit = form.handleSubmit(data => {
-    console.log(data)
+  const handleUpdateFormState = (data: z.infer<typeof formSchema>) => {
+    stateUpdateHandler(prev => ({
+      ...prev,
+      ...data
+    }))
+  }
+
+  const handleShowPrevious = form.handleSubmit(data => {
+    handleUpdateFormState(data)
+    showPreviousElement()
+  })
+
+  const handleShowNext = form.handleSubmit(data => {
+    handleUpdateFormState(data)
+    showNextElement()
   })
 
   useEffect(() => {
-    const newFieldNames = fields.map(({name}, index) => `${mainFieldName}.${index}.name` as const)
-    setFieldNames(newFieldNames)
-  }, [fields])
+    form.reset(formState)
+  }, [formState])
 
   return (
     <Form {...form}>
-      <form onSubmit={handleOnSubmit}>
+      <form>
         <Stack className="gap-10">
           {fields.map((field, index, arr) => (
             <Card key={field.id}>
@@ -92,7 +107,10 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
           {fields.length < CONSTANTS.MAX_FIELD_ARRAY_LENGTH && (
             <Button variant="secondary" onClick={handleAddItem} type="button">Add Ingredient Group</Button>
           )}
-          <Button type="submit">Submit</Button>
+          <Inline>
+            <Button onClick={handleShowPrevious} type="button">Prev</Button>
+            <Button onClick={handleShowNext} type="button">Next</Button>
+          </Inline>
         </Stack>
         <ErrorMessage
           name={mainFieldName}
