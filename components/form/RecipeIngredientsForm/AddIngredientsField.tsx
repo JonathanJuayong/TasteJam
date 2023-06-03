@@ -2,7 +2,6 @@ import Stack from "@/components/layout/Stack";
 import {FormField} from "@/components/ui/form";
 import FormTextInput from "@/components/form/primitives/FormTextInput";
 import Inline from "@/components/layout/Inline";
-import {Separator} from "@/components/ui/separator";
 import FormNumberInput from "@/components/form/primitives/FormNumberInput";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
@@ -43,11 +42,11 @@ export default function AddIngredientsField({control, index}: AddIngredientsFiel
           />
         )}
       />
-      <Stack className="gap-5 max-h-64 overflow-y-scroll">
+      <Stack className="gap-20 max-h-64 overflow-y-scroll">
         {fields.map((field, idx) => (
           <Inline key={field.id} className="gap-5 relative">
             <Stack className="gap-5">
-              {idx > 0 && (<Separator className="my-5"/>)}
+              {/*{idx > 0 && (<Separator className="my-5"/>)}*/}
               <Inline className="gap-5">
                 <FormField
                   control={control}
@@ -97,8 +96,8 @@ export default function AddIngredientsField({control, index}: AddIngredientsFiel
                 type="button"
                 variant="destructive"
                 className={cn(
-                  "absolute p-[2px] h-4 w-4 right-0 rounded-full",
-                  idx > 0 ? "top-14" : "top-0"
+                  "absolute p-[2px] h-4 w-4 right-2 rounded-full",
+                  idx > 0 ? "top-0" : "top-0"
                 )}
                 onClick={handleDeleteItem(idx)}
               >
