@@ -89,7 +89,7 @@ export default function RecipeIngredientsForm({}: RecipeIngredientsFormProps) {
           {fields.map((field, index, arr) => (
             <Card key={field.id}>
               <CardContent className="relative">
-                {arr.length > 1 && (
+                {index !== 0 && (
                   <Button
                     variant="ghost"
                     className="absolute right-0 top-1 rounded-full h-10 w-10 p-1"
