@@ -54,18 +54,24 @@ export default function RecipePrimaryInfoSummaryCard() {
             <Inline as="section" justify="start" className="gap-5">
               <Stack className="border p-2 rounded-md">
                 <SmallHeaderText text="Serves"/>
-                <p><span className="inline-block align-center"><Users2 className="w-4 h-4"/></span>{` ${serves}`} pax
-                </p>
+                <Inline className="gap-2" align="center">
+                  <Users2 className="w-4 h-4"/>
+                  <p>{`${serves} pax`}</p>
+                </Inline>
               </Stack>
               <Stack className="border p-2 rounded-md">
                 <SmallHeaderText text="Prep Time"/>
-                <p><span className="inline-block align-center"><Clock1
-                  className="w-4 h-4"/></span>{` ${prepTime} ${getMinOrMins(prepTime)}`}</p>
+                <Inline className="gap-2" align="center">
+                  <Clock1 className="w-4 h-4"/>
+                  <p>{`${prepTime} ${getMinOrMins(prepTime)}`}</p>
+                </Inline>
               </Stack>
               <Stack className="border p-2 rounded-md">
-                <SmallHeaderText text="Cook Time"/>
-                <p><span className="inline-block align-center"><Clock1
-                  className="w-4 h-4"/></span>{` ${cookTime} ${getMinOrMins(cookTime)}`}</p>
+                <SmallHeaderText text="Prep Time"/>
+                <Inline className="gap-2" align="center">
+                  <Clock1 className="w-4 h-4"/>
+                  <p>{`${cookTime} ${getMinOrMins(cookTime)}`}</p>
+                </Inline>
               </Stack>
             </Inline>
           </Stack>
