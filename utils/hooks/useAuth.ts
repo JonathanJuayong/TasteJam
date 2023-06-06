@@ -1,9 +1,14 @@
 import supabase from "@/lib/supabase";
 import {useEffect, useState} from "react";
-import {User} from "@/utils/types";
 import {Subscription} from "@supabase/gotrue-js";
 
 type AuthProvider = "google" | "facebook"
+
+type AuthUser = {
+  id: string
+  avatar?: string,
+  email?: string
+}
 
 type AuthError = {
   message?: string | null,
@@ -13,7 +18,7 @@ type AuthError = {
 }
 
 interface IAuth {
-  user: User | null,
+  user: AuthUser | null,
   loading: boolean,
   error: AuthError | null
   signInWithProvider: (provider: AuthProvider) => Promise<void>
@@ -21,7 +26,7 @@ interface IAuth {
 }
 
 export default function useAuth(): IAuth {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [error, setError] = useState<AuthError | null>(null);
   const [loading, setLoading] = useState(true);
 
