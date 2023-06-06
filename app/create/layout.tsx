@@ -1,6 +1,7 @@
 import {ReactNode} from "react";
 import Container from "@/components/layout/Container";
 import {Toaster} from "@/components/ui/toast";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 interface NewPageLayoutProps {
   children: ReactNode
@@ -8,9 +9,11 @@ interface NewPageLayoutProps {
 
 export default function CreatePageLayout({children}: NewPageLayoutProps) {
   return (
-    <Container className="py-10">
-      {children}
-      <Toaster/>
-    </Container>
-)
+    <ProtectedRoute>
+      <Container className="py-10">
+        {children}
+        <Toaster/>
+      </Container>
+    </ProtectedRoute>
+  )
 }
